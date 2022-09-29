@@ -20,7 +20,7 @@ function App() {
   }
 
   function sortPopularity() {
-    let sortedArr = contacts.sort(function(a,b){
+    let sortedArr = contactsArr.sort(function(a,b){
       return b.popularity-a.popularity
     })
 
@@ -29,7 +29,7 @@ function App() {
   }
 
   function sortName () {
-    let sortedArr = contacts.sort(function(a, b) {
+    let sortedArr = contactsArr.sort(function(a, b) {
       let x = a.name.toLowerCase();
       let y = b.name.toLowerCase();
       if (x < y) {return -1;}
@@ -40,6 +40,15 @@ function App() {
     const copySortedArr = [...sortedArr]
     setContacts(copySortedArr)
   }
+
+  const deleteContact = contactId => {
+      const filteredArray = contactsArr.filter(element => {
+        return element.id !== contactId
+      });
+      
+      setContacts(filteredArray);
+    }
+
 
   return (
     <div className="App">
@@ -74,6 +83,9 @@ function App() {
             <td>
             {element.wonEmmy && <img src="/images/oscar.png" height="30px" alt="award"/>}
             {!element.wonEmmy && ""}
+            </td>
+            <td>
+            <button onClick={()=>deleteContact(element.id)}>Delete</button>
             </td>
           </tr>
         )
